@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Patient</title>
+</head>
+<body>
+    <h1>New Patient</h1>
+    <form action="{{ url_for('new_patient') }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+        <label for="surname">Surname:</label>
+        <input type="text" name="surname" required><br>
+        <label for="city">City:</label>
+        <input type="text" name="city" required><br>
+        <label for="date_of_birth">Date of Birth (YYYY-MM-DD):</label>
+        <input type="date" name="date_of_birth" required><br>
+        <button type="submit">Create Patient</button>
+    </form>
+</body>
+</html>
+

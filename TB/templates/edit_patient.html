@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Patient</title>
+</head>
+<body>
+    <h1>Edit Patient</h1>
+    <form action="{{ url_for('edit_patient', patient_id=patient.id) }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ patient.name }}" required><br>
+        <label for="surname">Surname:</label>
+        <input type="text" name="surname" value="{{ patient.surname }}" required><br>
+        <label for="city">City:</label>
+        <input type="text" name="city" value="{{ patient.city }}" required><br>
+        <label for="date_of_birth">Date of Birth (YYYY-MM-DD):</label>
+        <input type="date" name="date_of_birth" value="{{ patient.date_of_birth.strftime('%Y-%m-%d') }}" required><br>
+        <button type="submit">Update Patient</button>
+    </form>
+    <a href="{{ url_for('patients') }}">Back to patients</a>
+</body>
+</html>

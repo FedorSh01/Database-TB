@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Samples</title>
+</head>
+<body>
+    <h1>Samples</h1>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+    <br>
+    <h2>Add Sample</h2>
+    <form method="post" action="{{ url_for('add_sample') }}">
+        <label for="date">Date:</label>
+        <input type="date" name="date" required><br>
+        <label for="patient_id">Patient:</label>
+        <input type="text" id="patient_search" oninput="search_patient(this.value)"><br>
+        <select name="patient_id" id="patient_select" required>
+            <option value="">Select patient</option>
+            {% for patient in patients %}
+            <option value="{{ patient.id }}">{{ patient.name }} {{ patient.surname }}, {{ patient.city }}, {{ patient.date_of_birth.strftime('%Y-%m-%d') }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="diagnosis_id">Diagnosis:</label>
+        <select name="diagnosis_id" required>
+            <option value="">Select diagnosis</option>
+            {% for diagnosis in diagnoses %}
+            <option value="{{ diagnosis.id }}">{{ diagnosis.type }} - {{ diagnosis.localization }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="read_length">Read Length:</label>
+        <input type="number" step="0.01" name="read_length" required><br>
+        <label for="total_length">Total Length:</label>
+        <input type="number" name="total_length" required><br>
+        <button type="submit">Add Sample</button>
+    </form>
+    <script>
+        function search_patient(query) {
+            // Получить всех пациентов из списка
+            var patients = [{% for patient in patients %}
+    {
+        id: {{ patient.id }},
+        name: "{{ patient.name }} {{ patient.surname }}",
+        city: "{{ patient.city }}",
+        date_of_birth: "{{ patient.date_of_birth.strftime('%Y-%m-%d') }}"
+    }{% if not loop.last %},{% endif %}
+{% endfor %}];
+            // Отфильтровать пациентов по запросу
+            var filtered_patients = patients.filter(function(patient) {
+                return patient.name.toLowerCase().includes(query.toLowerCase());
+            });
+            // Очистить список пациентов
+            var patient_select = document.getElementById("patient_select");
+            patient_select.innerHTML = "<option value=''>Select patient</option>";
+            // Добавить отфильтрованных пациентов в список
+            for (var i = 0; i < filtered_patients.length; i++) {
+                var patient = filtered_patients[i];
+                var option = document.createElement("option");
+                option.value = patient.id;
+                option.text = patient.name + ", " + patient.city + ", " + patient.date_of_birth;
+                patient_select.add(option);
+            }
+        }
+    </script>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Diagnosis</th>
+                <th>Read Length</th>
+                <th>Total Length</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sample in samples %}
+            <tr>
+                <td>{{ sample.date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ sample.patient.name }} {{ sample.patient.surname }}</td>
+                <td>{{ sample.diagnosis.type }} - {{ sample.diagnosis.localization }}</td>
+                <td>{{ sample.read_length }}</td>
+                <td>{{ sample.total_length }}</td>
+                <td>
+                    <a href="{{ url_for('edit_sample', sample_id=sample.id) }}">Edit</a>
+                    <form method="post" action="{{ url_for('delete_sample', sample_id=sample.id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

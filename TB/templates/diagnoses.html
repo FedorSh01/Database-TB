@@ -11,7 +11,9 @@
             <li>
                 Type: {{ diagnosis.type }} - Localization: {{ diagnosis.localization }}
                 <a href="{{ url_for('edit_diagnosis', diagnosis_id=diagnosis.id) }}">Edit</a>
-                <a href="{{ url_for('delete_diagnosis', diagnosis_id=diagnosis.id) }}">Delete</a>
+                <form method="post" action="{{ url_for('delete_diagnosis', diagnosis_id=diagnosis.id) }}">
+                    <input type="submit" value="Delete">
+                </form>
             </li>
         {% endfor %}
     </ul>

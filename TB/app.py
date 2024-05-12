@@ -37,20 +37,8 @@ def create_tables():
 def index():
     return render_template('index.html')
 
-@app.route('/patients', methods=['GET', 'POST'])
+@app.route('/patients')
 def patients():
-    if request.method == 'POST':
-        name = request.form['name']
-        surname = request.form['surname']
-        city = request.form['city']
-        date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d')
-
-        new_patient = Patient(name=name, surname=surname, city=city, date_of_birth=date_of_birth)
-        db.session.add(new_patient)
-        db.session.commit()
-
-        return redirect(url_for('patients'))
-
     patients = Patient.query.order_by(Patient.surname).all()
     return render_template('patients.html', patients=patients)
 
@@ -73,7 +61,6 @@ def new_patient():
 @app.route('/edit_patient/<int:patient_id>', methods=['GET', 'POST'])
 def edit_patient(patient_id):
     patient = Patient.query.get_or_404(patient_id)
-
     if request.method == 'POST':
         patient.name = request.form['name']
         patient.surname = request.form['surname']
@@ -85,6 +72,8 @@ def edit_patient(patient_id):
         return redirect(url_for('patients'))
 
     return render_template('edit_patient.html', patient=patient)
+
+
 @app.route('/delete_patient/<int:patient_id>', methods=['POST'])
 def delete_patient(patient_id):
     patient = Patient.query.get_or_404(patient_id)

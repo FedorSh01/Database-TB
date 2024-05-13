@@ -1,7 +1,7 @@
 ![image](https://github.com/FedorSh01/Database-TB/assets/114180765/db60cf19-96c7-46d5-8796-4636718096d9)
 ![image](https://github.com/FedorSh01/Database-TB/assets/114180765/d18e209e-0a15-4720-a802-5affd0ef0e38)
 ![image](https://github.com/FedorSh01/Database-TB/assets/114180765/7b4e1efe-205c-48db-ab58-bcc7581237a7) 
-![image](https://github.com/FedorSh01/Database-TB/assets/114180765/171c60cf-0308-4aef-84b0-49fa773e3d3d)
+![image](https://github.com/FedorSh01/Database-TB/assets/114180765/ed6f15cf-52e7-4de8-a84c-07ca709022fa)
 ![image](https://github.com/FedorSh01/Database-TB/assets/114180765/fadde1fc-6b93-412b-becb-ef64962e439c)
 ![image](https://github.com/FedorSh01/Database-TB/assets/114180765/2d94fa4a-20f5-4b34-a41a-9b3470f2205d) 
 
